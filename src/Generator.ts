@@ -171,6 +171,9 @@ export default class Generator {
         });
     }
 
+    /**
+     * todo Return Class Object instead of Array 
+     */
     private static findProperties(): Array<Property> {
         let res = new Array<Property>();
 
