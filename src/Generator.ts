@@ -16,7 +16,7 @@ export default class Generator {
             throw new Error(PROPERTY_NOT_FOUND);
         }
         this.editor = vscode.window.activeTextEditor;
-        let classObject : Class = new Class(Generator.findProperties());
+        let classObject : Class = Generator.loadClass();
         Generator.render(classObject.generateConstruct());
 
     }
@@ -58,7 +58,7 @@ export default class Generator {
         this.editor = vscode.window.activeTextEditor;
 
         //Obtain property informations (name and type)
-        let classObject : Class = new Class(Generator.findProperties());
+        let classObject : Class = Generator.loadClass();
 
         //Render the getters
         Generator.render(classObject.generateGetters());
@@ -73,7 +73,7 @@ export default class Generator {
         this.editor = vscode.window.activeTextEditor;
 
         //Obtain property informations (name and type)
-        let classObject : Class = new Class(Generator.findProperties());
+        let classObject : Class = Generator.loadClass();
 
         //Render the getters
         Generator.render(classObject.generateSetters());
@@ -171,23 +171,31 @@ export default class Generator {
         });
     }
 
-    /**
-     * todo Return Class Object instead of Array 
-     */
-    private static findProperties(): Array<Property> {
+    private static loadClass(): Class {
         let res = new Array<Property>();
+        let className = '';
 
         for (let lineNumber = 0 ; lineNumber <= this.editor.document.lineCount - 1; lineNumber++) {
             const text = this.editor.document.lineAt(lineNumber).text.trim();
-            const regex = /(private|protected|public) *([a-zA-Z]*) *\$([a-zA-Z]+) *;/g;
+            let regex = /(private|protected|public) *([a-zA-Z]*) *\$([a-zA-Z]+) *;/g;
             let regexRes = regex.exec(text);
 
             if (regexRes) {
                 res.push(Generator.getPropertyInfos(new vscode.Position(lineNumber, 0)));
+                continue;
             }
+
+            regex = /class ([a-zA-Z]*) *(\n|\r\n)? *{/gm;
+            regexRes = regex.exec(text);
+
+            if(regexRes) {
+                className = regexRes[1];
+            }
+
+
         }
 
-        return res;
+        return new Class(className, res);
     }
 
 }

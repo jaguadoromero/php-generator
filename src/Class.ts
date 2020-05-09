@@ -9,9 +9,8 @@ export default class Class {
 
     private config: Configuration;
 
-    public constructor(properties: Array<Property>) {
-        //todo Add filename in Class construct
-        this.className = '';
+    public constructor(className: string, properties: Array<Property>) {
+        this.className = className;
         this.properties = properties;
 
         this.config = Configuration.getInstance();
@@ -25,6 +24,7 @@ export default class Class {
 
         let params = '';
         let body = '';
+        let commentParams = '';
         this.properties.forEach((property, i) => {
 
             params += i === 0 ? '' : ', ';
@@ -34,10 +34,9 @@ export default class Class {
             params += '$' + property.getName();
 
             body += eol + tab + tab + '$this->' + property.getName() + ' = $' + property.getName() + ';';
-        });
 
-        //todo Add Construct params in PHPDoc
-        let commentParams = '';
+            commentParams += property.getType() === '' ? '' : eol + tab + '* @param ' + property.getType() + ' $' + property.getName(); 
+        });
 
         return `
 ${tab}/**
