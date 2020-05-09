@@ -15,11 +15,13 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 
+	let addConstruct = vscode.commands.registerCommand('php-generator.generate-construct', () => Generator.addConstruct());
 	let addGetter = vscode.commands.registerCommand('php-generator.generate-getter', () => Generator.addGetter());
 	let addSetter = vscode.commands.registerCommand('php-generator.generate-setter', () => Generator.addSetter());
 	let addAllGetters = vscode.commands.registerCommand('php-generator.generate-all-getters', () => Generator.addAllGetter());
 	let addAllSetters = vscode.commands.registerCommand('php-generator.generate-all-setters', () => Generator.addAllSetter());
 
+	context.subscriptions.push(addConstruct);
 	context.subscriptions.push(addGetter);
 	context.subscriptions.push(addSetter);
 	context.subscriptions.push(addAllGetters);

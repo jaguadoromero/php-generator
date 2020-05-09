@@ -1,11 +1,25 @@
 import * as vscode from 'vscode';
 import Property from './Property';
+import Class from './Class';
+import { threadId } from 'worker_threads';
 
 const PROPERTY_NOT_FOUND = 'Nothing selected or not a property';
 
 export default class Generator {
 
     private static editor: vscode.TextEditor;
+
+    public static addConstruct():void {
+
+        if(vscode.window.activeTextEditor === undefined) {
+            vscode.window.showErrorMessage(PROPERTY_NOT_FOUND);
+            throw new Error(PROPERTY_NOT_FOUND);
+        }
+        this.editor = vscode.window.activeTextEditor;
+        let classObject : Class = new Class(Generator.findProperties());
+        Generator.render(classObject.generateConstruct());
+
+    }
 
     public static addGetter(): void {
 
@@ -18,7 +32,7 @@ export default class Generator {
         //Obtain property informations (name and type)
         let getterInfos : Property = Generator.getPropertyInfos(this.editor.selection.active);
         //Render the getter
-        Generator.render(Generator.getEndOfClass(), getterInfos.generateGetter());
+        Generator.render(getterInfos.generateGetter());
     }
 
     public static addSetter(): void {
@@ -32,7 +46,7 @@ export default class Generator {
         //Obtain property informations (name and type)
         let getterInfos : Property = Generator.getPropertyInfos(this.editor.selection.active);
         //Render the getter
-        Generator.render(Generator.getEndOfClass(), getterInfos.generateSetter());
+        Generator.render(getterInfos.generateSetter());
     }
 
     public static addAllGetter(): void {
@@ -47,11 +61,11 @@ export default class Generator {
         let properties : Array<Property> = Generator.findProperties();
         let content = '';
         properties.forEach(property => {
-            content += property.generateGetter();
+            content += property.generateGetter() + '\n';
         });
 
-            //Render the getters
-        Generator.render(Generator.getEndOfClass(), content);
+        //Render the getters
+        Generator.render(content);
     }
 
     public static addAllSetter(): void {
@@ -66,11 +80,11 @@ export default class Generator {
         let properties : Array<Property> = Generator.findProperties();
         let content = '';
         properties.forEach(property => {
-            content += property.generateSetter();
+            content += property.generateSetter() + '\n';
         });
 
-            //Render the getters
-        Generator.render(Generator.getEndOfClass(), content);
+        //Render the getters
+        Generator.render(content);
     }
 
     /**
@@ -136,22 +150,31 @@ export default class Generator {
 
     private static getEndOfClass(): vscode.TextLine {
 
-        for (let lineNumber = this.editor.document.lineCount - 1; lineNumber > 0; lineNumber--) {
+        for (let lineNumber = this.editor.document.lineCount-1; lineNumber > 0; lineNumber--) {
             const text = this.editor.document.lineAt(lineNumber).text.trim();
 
             if (text.includes('}')) {
-                return this.editor.document.lineAt(lineNumber-1);
+                return this.editor.document.lineAt(lineNumber);
             }
         }
 
         return this.editor.document.lineAt(this.editor.document.lineCount - 1);
     }
 
-    private static render(line: vscode.TextLine, content: string): void {
+    private static render(content: string): void {
+
+        let line = this.getEndOfClass();
+        let eol = '';
+        if(this.editor.document.lineAt(line.lineNumber-1).text.trim() === '') {
+            line = this.editor.document.lineAt(line.lineNumber-1);
+        } else {
+            eol += '\n';
+        }
+
         this.editor.edit(function(edit: vscode.TextEditorEdit){
-            edit.insert(
+            edit.replace(
                 new vscode.Position(line.lineNumber, 0),
-                content
+                content + eol
             );
         });
     }

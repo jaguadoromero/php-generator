@@ -26,6 +26,11 @@
 		},
 		"commands": [
 			{
+				"command": "php-generator.generate-construct",
+				"title": "Add construct",
+				"category": "PHP code generator"
+			},
+			{
 				"command": "php-generator.generate-getter",
 				"title": "Add getter",
 				"category": "PHP code generator"
@@ -48,6 +53,11 @@
 		],
 		"menus" : {
 			"editor/context": [
+				{
+					"when": "resourceLangId == php",
+					"command": "php-generator.generate-construct",
+					"group": "0_phpGenerator@0"
+				},
 				{
 					"when": "resourceLangId == php",
 					"command": "php-generator.generate-getter",
