@@ -27,27 +27,27 @@
 		"commands": [
 			{
 				"command": "php-generator.generate-construct",
-				"title": "Add construct",
+				"title": "Add Class Construct",
 				"category": "PHP code generator"
 			},
 			{
 				"command": "php-generator.generate-getter",
-				"title": "Add getter",
+				"title": "Add Property Getter",
 				"category": "PHP code generator"
 			},
 			{
 				"command": "php-generator.generate-setter",
-				"title": "Add setter",
+				"title": "Add Property Setter",
 				"category": "PHP code generator"
 			},
 			{
 				"command": "php-generator.generate-all-getters",
-				"title": "Add all getters",
+				"title": "Add All Getters",
 				"category": "PHP code generator"
 			},
 			{
 				"command": "php-generator.generate-all-setters",
-				"title": "Add all setters",
+				"title": "Add All Setters",
 				"category": "PHP code generator"
 			}
 		],
