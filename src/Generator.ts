@@ -58,14 +58,10 @@ export default class Generator {
         this.editor = vscode.window.activeTextEditor;
 
         //Obtain property informations (name and type)
-        let properties : Array<Property> = Generator.findProperties();
-        let content = '';
-        properties.forEach(property => {
-            content += property.generateGetter() + '\n';
-        });
+        let classObject : Class = new Class(Generator.findProperties());
 
         //Render the getters
-        Generator.render(content);
+        Generator.render(classObject.generateGetters());
     }
 
     public static addAllSetter(): void {
@@ -77,14 +73,10 @@ export default class Generator {
         this.editor = vscode.window.activeTextEditor;
 
         //Obtain property informations (name and type)
-        let properties : Array<Property> = Generator.findProperties();
-        let content = '';
-        properties.forEach(property => {
-            content += property.generateSetter() + '\n';
-        });
+        let classObject : Class = new Class(Generator.findProperties());
 
         //Render the getters
-        Generator.render(content);
+        Generator.render(classObject.generateSetters());
     }
 
     /**

@@ -26,10 +26,18 @@ ${tab}}`;
     }
 
     public generateGetters(): string {
-        return '';
+        let content = '';
+        this.properties.forEach(property => {
+            content += property.generateGetter() + '\n';
+        });
+        return content;
     }
 
     public generateSetters(): string {
-        return '';
+        let content = '';
+        this.properties.forEach(property => {
+            content += property.generateSetter() + '\n';
+        });
+        return content;
     }
 }
