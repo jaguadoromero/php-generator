@@ -9,7 +9,7 @@ export default class Configuration {
 
     private constructor() {
 
-        this.config = vscode.workspace.getConfiguration('php-code-generator');
+        this.config = vscode.workspace.getConfiguration('php-generator');
         this.editorConfig = vscode.workspace.getConfiguration('editor');
     }
 

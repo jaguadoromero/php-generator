@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import Generator from './Generator';
+import Creator from './Creator';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -21,11 +22,18 @@ export function activate(context: vscode.ExtensionContext) {
 	let addAllGetters = vscode.commands.registerCommand('php-generator.generate-all-getters', () => Generator.addAllGetter());
 	let addAllSetters = vscode.commands.registerCommand('php-generator.generate-all-setters', () => Generator.addAllSetter());
 
+	let newClass = vscode.commands.registerCommand('php-generator.create-class', file => Creator.newClass(file));
+	let newInterface = vscode.commands.registerCommand('php-generator.create-interface', file => Creator.newInterface(file));
+
+
 	context.subscriptions.push(addConstruct);
 	context.subscriptions.push(addGetter);
 	context.subscriptions.push(addSetter);
 	context.subscriptions.push(addAllGetters);
 	context.subscriptions.push(addAllSetters);
+
+	context.subscriptions.push(newClass);
+	context.subscriptions.push(newInterface);
 }
 
 // this method is called when your extension is deactivated

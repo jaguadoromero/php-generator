@@ -1,8 +1,11 @@
 {
 	"name": "php-generator",
-	"displayName": "PHP code generator",
-	"description": "PHP code generator for vs code",
+	"displayName": "PHP File & Code Generator",
+	"description": "Add file & method PHP template in context menu. Construct, accessors ...",
 	"version": "0.0.1",
+	"publisher": "adasilva",
+	"author": "Antoine Da Silva",
+	"license": "MIT",
 	"engines": {
 		"vscode": "^1.44.0"
 	},
@@ -10,14 +13,16 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage:php"
+		"onLanguage:php",
+		"onCommand:php-generator.create-class",
+		"onCommand:php-generator.create-interface"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"configuration": {
-			"title": "PHP code generator",
+			"title": "PHP File & Code Generator",
 			"properties":{
-				"php-code-generator.newLineBeforeBracket": {
+				"php-generator.newLineBeforeBracket": {
 					"type": "boolean",
 					"default": true,
 					"description": "Bracket on new line (Should be true to respect PSR-12)"
@@ -28,27 +33,37 @@
 			{
 				"command": "php-generator.generate-construct",
 				"title": "Add Class Construct",
-				"category": "PHP code generator"
+				"category": "PHP Generator"
 			},
 			{
 				"command": "php-generator.generate-getter",
 				"title": "Add Property Getter",
-				"category": "PHP code generator"
+				"category": "PHP Generator"
 			},
 			{
 				"command": "php-generator.generate-setter",
 				"title": "Add Property Setter",
-				"category": "PHP code generator"
+				"category": "PHP Generator"
 			},
 			{
 				"command": "php-generator.generate-all-getters",
 				"title": "Add All Getters",
-				"category": "PHP code generator"
+				"category": "PHP Generator"
 			},
 			{
 				"command": "php-generator.generate-all-setters",
 				"title": "Add All Setters",
-				"category": "PHP code generator"
+				"category": "PHP Generator"
+			},
+			{
+				"command": "php-generator.create-class",
+				"title": "New PHP Class",
+				"category": "PHP Generator"
+			},
+			{
+				"command": "php-generator.create-interface",
+				"title": "New PHP Interface",
+				"category": "PHP Generator"
 			}
 		],
 		"menus" : {
@@ -77,6 +92,16 @@
 					"when": "resourceLangId == php",
 					"command": "php-generator.generate-all-setters",
 					"group": "0_phpGenerator@4"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "php-generator.create-class",
+					"group": "0_phpGenerator@0"
+				},
+				{
+					"command": "php-generator.create-interface",
+					"group": "0_phpGenerator@1"
 				}
 			]
 		}
