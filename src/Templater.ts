@@ -4,7 +4,7 @@ import Configuration from './Configuration';
 export default class Templater {
 
     public static getClassTemplate(filename: string): string {
-        const config = Configuration.getInstance();
+        const config = new Configuration();
 
         let eol = '\n';
         let tab = config.getTab();
@@ -20,7 +20,7 @@ class ${filename}${beforeBracket}{
     }
 
     public static getInterfaceTemplate(filename: string): string {
-        const config = Configuration.getInstance();
+        const config = new Configuration();
 
         let eol = '\n';
         let tab = config.getTab();

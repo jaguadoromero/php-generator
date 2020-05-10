@@ -11,7 +11,7 @@ export default class Property {
         this.name = name;
         this.type = type;
 
-        this.config = Configuration.getInstance();
+        this.config = new Configuration();
     }
 
     public getName() {

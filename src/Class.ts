@@ -13,7 +13,7 @@ export default class Class {
         this.className = className;
         this.properties = properties;
 
-        this.config = Configuration.getInstance();
+        this.config = new Configuration();
     }
 
     public generateConstruct(): string {
