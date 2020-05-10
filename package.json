@@ -26,6 +26,11 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Bracket on new line (Should be true to respect PSR-12)"
+				},
+				"php-generator.tabSize": {
+					"type": ["integer", "null"],
+					"default": null,
+					"description": "The number of spaces a tab is equal to. Default is editor tab size value"
 				}
 			}
 		},
