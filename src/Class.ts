@@ -35,7 +35,11 @@ export default class Class {
 
             body += eol + tab + tab + '$this->' + property.getName() + ' = $' + property.getName() + ';';
 
-            commentParams += property.getType() === '' ? '' : eol + tab + '* @param ' + property.getType() + ' $' + property.getName(); 
+            commentParams += eol + tab + '* @param ' + 
+                (property.getType() !== '' 
+                    ? property.getType() + ' '
+                    : '')
+                + '$' + property.getName(); 
         });
 
         return `
