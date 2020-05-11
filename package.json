@@ -32,7 +32,7 @@
 				"php-generator.newLineBeforeBracket": {
 					"type": "boolean",
 					"default": true,
-					"description": "Bracket on new line (Should be true to respect PSR-12)"
+					"description": "Open bracket on new line (Should be true to respect PSR-12)"
 				},
 				"php-generator.tabSize": {
 					"type": [
@@ -41,6 +41,11 @@
 					],
 					"default": null,
 					"description": "The number of spaces a tab is equal to. Default is editor tab size value"
+				},
+				"php-generator.addNamespace": {
+					"type": "boolean",
+					"default": true,
+					"description": "Add namespace on generated files. Use composer.json to get namespace list."
 				}
 			}
 		},
