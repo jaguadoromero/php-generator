@@ -21,14 +21,17 @@
 	"contributes": {
 		"configuration": {
 			"title": "PHP File & Code Generator",
-			"properties":{
+			"properties": {
 				"php-generator.newLineBeforeBracket": {
 					"type": "boolean",
 					"default": true,
 					"description": "Bracket on new line (Should be true to respect PSR-12)"
 				},
 				"php-generator.tabSize": {
-					"type": ["integer", "null"],
+					"type": [
+						"integer",
+						"null"
+					],
 					"default": null,
 					"description": "The number of spaces a tab is equal to. Default is editor tab size value"
 				}
@@ -71,7 +74,7 @@
 				"category": "PHP Generator"
 			}
 		],
-		"menus" : {
+		"menus": {
 			"editor/context": [
 				{
 					"when": "resourceLangId == php",
@@ -120,13 +123,13 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.44.0",
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.2",
 		"@types/node": "^13.11.0",
-		"eslint": "^6.8.0",
-		"@typescript-eslint/parser": "^2.30.0",
+		"@types/vscode": "^1.45.0",
 		"@typescript-eslint/eslint-plugin": "^2.30.0",
+		"@typescript-eslint/parser": "^2.30.0",
+		"eslint": "^6.8.0",
 		"glob": "^7.1.6",
 		"mocha": "^7.1.2",
 		"typescript": "^3.8.3",
