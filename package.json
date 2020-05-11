@@ -6,6 +6,13 @@
 	"publisher": "adasilva",
 	"author": "Antoine Da Silva",
 	"license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/antodasil/php-generator"
+    },
+    "bugs": {
+        "url": "https://github.com/antodasil/php-generator/issues"
+    },
 	"engines": {
 		"vscode": "^1.44.0"
 	},
