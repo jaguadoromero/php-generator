@@ -1,65 +1,39 @@
-# php-generator README
+# PHP File & Code Generator
 
-This is the README for your extension "php-generator". After writing up a brief description, we recommend including the following sections.
+This is an extension to generate class methods (Construct and Getters/Setters) but also create new PHP file with class or interface template.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### Add class methods: 
 
-For example if there is an image subfolder under your extension project workspace:
+> To add only one getter/setter, select the line property before choosing "Add property getter"
 
-\!\[feature X\]\(images/feature-x.png\)
+![Method generator](images/generator.gif)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+
+### New Class/interface file: 
+![File generator](images/creator.gif)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+No requirements
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+* `php-generator.newLineBeforeBrackets`: Boolean: True to insert open bracket on a new line. Default is true (PSR-12).
+* `php-generator.tabSize`: Integer|Null : Number of spaces used for tabs. If null, get editor tab size (editor.tabSize). Default is null.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+Method generation:
+* Construct
+* Getter and Setter
+* All getter and All setter
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+New file generation: 
+* Class
+* Interface 
