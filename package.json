@@ -2,6 +2,7 @@
 	"name": "php-generator",
 	"displayName": "PHP File & Code Generator",
 	"description": "Add file & method PHP template in context menu. Construct, accessors ...",
+	"icon": "images/php.png",
 	"version": "1.0.0",
 	"publisher": "adasilva",
 	"author": "Antoine Da Silva",
