@@ -3,17 +3,21 @@ import Property from './Property';
 import Class from './Class';
 import { threadId } from 'worker_threads';
 
-const PROPERTY_NOT_FOUND = 'Nothing selected or not a property';
+const PROPERTY_NOT_FOUND = 'PHP generator: Nothing selected or not a property';
+const NO_FILE_OPEN = 'PHP generator: Nothing selected or not a property';
 
 export default class Generator {
 
     private static editor: vscode.TextEditor;
 
-    public static addConstruct():void {
+    /**
+     * Add class construct in file
+     */
+    public static addConstruct(): void {
 
         if(vscode.window.activeTextEditor === undefined) {
-            vscode.window.showErrorMessage(PROPERTY_NOT_FOUND);
-            throw new Error(PROPERTY_NOT_FOUND);
+            vscode.window.showErrorMessage(NO_FILE_OPEN);
+            return;
         }
         this.editor = vscode.window.activeTextEditor;
         let classObject : Class = Generator.loadClass();
@@ -21,11 +25,14 @@ export default class Generator {
 
     }
 
+    /**
+     * Add property getter in file
+     */
     public static addGetter(): void {
 
         if(vscode.window.activeTextEditor === undefined) {
             vscode.window.showErrorMessage(PROPERTY_NOT_FOUND);
-            throw new Error(PROPERTY_NOT_FOUND);
+            return;
         }
         this.editor = vscode.window.activeTextEditor;
 
@@ -35,11 +42,14 @@ export default class Generator {
         Generator.render(getterInfos.generateGetter());
     }
 
+    /**
+     * Add property setter in file
+     */
     public static addSetter(): void {
 
         if(vscode.window.activeTextEditor === undefined) {
             vscode.window.showErrorMessage(PROPERTY_NOT_FOUND);
-            throw new Error(PROPERTY_NOT_FOUND);
+            return;
         }
         this.editor = vscode.window.activeTextEditor;
 
@@ -49,11 +59,14 @@ export default class Generator {
         Generator.render(getterInfos.generateSetter());
     }
 
+    /**
+     * Add class getters in file
+     */
     public static addAllGetter(): void {
 
         if(vscode.window.activeTextEditor === undefined) {
-            vscode.window.showErrorMessage(PROPERTY_NOT_FOUND);
-            throw new Error(PROPERTY_NOT_FOUND);
+            vscode.window.showErrorMessage(NO_FILE_OPEN);
+            return;
         }
         this.editor = vscode.window.activeTextEditor;
 
@@ -64,11 +77,14 @@ export default class Generator {
         Generator.render(classObject.generateGetters());
     }
 
+    /**
+     * Add class setters in file
+     */
     public static addAllSetter(): void {
 
         if(vscode.window.activeTextEditor === undefined) {
-            vscode.window.showErrorMessage(PROPERTY_NOT_FOUND);
-            throw new Error(PROPERTY_NOT_FOUND);
+            vscode.window.showErrorMessage(NO_FILE_OPEN);
+            return;
         }
         this.editor = vscode.window.activeTextEditor;
 
@@ -80,7 +96,7 @@ export default class Generator {
     }
 
     /**
-     * Return a map with property informations
+     * Get selected property
      * 
      * @param {vscode.Position} position
      * @return {Property}
@@ -140,6 +156,11 @@ export default class Generator {
 
     }
 
+    /**
+     * Get class end line
+     * 
+     * @return {vscode.TextLine}
+     */
     private static getEndOfClass(): vscode.TextLine {
 
         for (let lineNumber = this.editor.document.lineCount-1; lineNumber > 0; lineNumber--) {
@@ -153,6 +174,11 @@ export default class Generator {
         return this.editor.document.lineAt(this.editor.document.lineCount - 1);
     }
 
+    /**
+     * Add template in file
+     * 
+     * @param {string} content
+     */
     private static render(content: string): void {
 
         let line = this.getEndOfClass();
@@ -171,6 +197,11 @@ export default class Generator {
         });
     }
 
+    /**
+     * Get class from file
+     * 
+     * @return {Class}
+     */
     private static loadClass(): Class {
         let res = new Array<Property>();
         let className = '';

@@ -6,15 +6,25 @@ export default class Configuration {
     private editorConfig: vscode.WorkspaceConfiguration;
 
     public constructor() {
-
         this.config = vscode.workspace.getConfiguration('php-generator');
         this.editorConfig = vscode.workspace.getConfiguration('editor');
     }
 
-    public get(property: string) {
+    /**
+     * Get property value
+     * 
+     * @param {string} property
+     * @return {any}
+     */
+    public get(property: string): any {
         return this.config.get(property) || this.editorConfig.get(property);
     }
 
+    /**
+     * Get tab value
+     * 
+     * @return {string}
+     */
     public getTab(): string {
         let tab = '';
         for(let i = 0; i < Number(this.get('tabSize')); i++) {

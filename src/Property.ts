@@ -14,14 +14,29 @@ export default class Property {
         this.config = new Configuration();
     }
 
-    public getName() {
+    /**
+     * Get property name
+     * 
+     * @return {string}
+     */
+    public getName(): string {
         return this.name;
     }
 
-    public getType() {
+    /**
+     * Get property type
+     * 
+     * @return {string}
+     */
+    public getType(): string {
         return this.type;
     }
 
+    /**
+     * Get property getter template
+     * 
+     * @return {string}
+     */
     public generateGetter(): string {
 
         let eol = vscode.window.activeTextEditor?.document.eol === 1 ? '\n' : '\r\n';
@@ -42,6 +57,11 @@ ${tab}${tab}return $this->${name};
 ${tab}}`;
     }
 
+    /**
+     * Get property setter template
+     * 
+     * @return {string}
+     */
     public generateSetter(): string {
 
         let eol = vscode.window.activeTextEditor?.document.eol === 1 ? '\n' : '\r\n';

@@ -16,6 +16,11 @@ export default class Class {
         this.config = new Configuration();
     }
 
+    /**
+     * Get class construct template
+     * 
+     * @return {string}
+     */
     public generateConstruct(): string {
 
         let eol = vscode.window.activeTextEditor?.document.eol === 1 ? '\n' : '\r\n';
@@ -50,6 +55,11 @@ ${tab}public function __construct(${params})${beforeBracket}{${body}
 ${tab}}`;
     }
 
+    /**
+     * Get class getters template
+     * 
+     * @return {string}
+     */
     public generateGetters(): string {
         let content = '';
         this.properties.forEach(property => {
@@ -58,6 +68,11 @@ ${tab}}`;
         return content;
     }
 
+    /**
+     * Get class setters template
+     * 
+     * @returns {string}
+     */
     public generateSetters(): string {
         let content = '';
         this.properties.forEach(property => {
