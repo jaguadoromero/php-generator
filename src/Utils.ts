@@ -14,8 +14,7 @@ export default class Utils {
             return index === 0 ? word.toLowerCase() : word.toUpperCase(); 
         }).replace(/(\s|\-)+/g, ''); 
     }
-
-    // Todo: Fix namespace if many folder open in workspace
+    
     /**
      * Get namespaces declared in composer.json
      * 
