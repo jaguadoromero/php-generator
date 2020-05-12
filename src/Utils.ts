@@ -15,27 +15,37 @@ export default class Utils {
         }).replace(/(\s|\-)+/g, ''); 
     }
 
+    // Todo: Fix namespace if many folder open in workspace
     /**
      * Get namespaces declared in composer.json
      * 
      * @return {Promise<Object>}
      */
-    public static async getComposerNamespaces(): Promise<Object> {
+    public static async getComposerNamespaces(filePath: string): Promise<Object> {
 
         let workspaceFolders = vscode.workspace.workspaceFolders;
         if(!workspaceFolders) {
             return '';
         }
+        let namespacesList = new Object();
+        let uri;
+        workspaceFolders.forEach(folder => {
+            if(filePath.startsWith(folder.uri.path)) {
+                uri = vscode.Uri.parse(folder.uri.path + '/composer.json');
+            }
+        });
 
-        //Load composer.json
-        let uri = vscode.Uri.parse(workspaceFolders[0].uri.path + '/composer.json');
+        if(!uri) {
+            return namespacesList;
+        }
+
         let doc = await vscode.workspace.openTextDocument(uri);
-
-        let namespacesList = JSON.parse(doc.getText().replace('psr-4', 'psr4').replace('psr-0', 'psr0')).autoload;
+        let autoload = JSON.parse(doc.getText().replace('psr-4', 'psr4').replace('psr-0', 'psr0')).autoload;
+        namespacesList = autoload.psr4
+            ? autoload.psr4
+            : autoload.psr0;
 
         //Return object containing namespaces declared in composer.json
-        return namespacesList.psr4
-            ? namespacesList.psr4
-            : namespacesList.psr0;
+        return namespacesList;
     }
 }

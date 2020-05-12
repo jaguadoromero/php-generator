@@ -83,16 +83,30 @@ ${keyword} ${filename}${beforeBracket}{
             throw new Error('PHP Generator: Wrong path');
         }
         
-        let res = pathArray[1].replace(workspace[0].uri.path,'');
+        let res = '';
+        workspace.forEach(folder => {
+            if(pathArray[1].startsWith(folder.uri.path)) {
+                res = pathArray[1].replace(folder.uri.path,'');
+            }
+        });
+
+        if(res.length === 0) {
+            return '';
+        }
+
         res = res.slice(1);
         res = res.slice(0, res.length - 1);
 
-        let appNamespaces = await Utils.getComposerNamespaces();
+        let appNamespaces = await Utils.getComposerNamespaces(path);
         Object.entries(appNamespaces).forEach((ns) => {
             if (res === ns[1]) {
                 namespace = ns[0].slice(0, ns[0].length - 1);
             }
         });
+
+        if(namespace === '') {
+            vscode.window.showInformationMessage('PHP Generator: No matching namespace found.');
+        }
 
         return namespace;
     }
