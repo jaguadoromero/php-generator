@@ -1,9 +1,15 @@
 # Change Log
 
-All notable changes to the "php-generator" extension will be documented in this file.
+## 1.0.0
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+Initial release with : 
 
-- Initial release
+Methods generation accesible from editor context menu including:
+* Construct
+* Getter and Setter
+* All getter and All setter
+
+File generation accesible from explorer context menu including:
+* Class
+* Interface

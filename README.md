@@ -4,13 +4,13 @@ This is an extension to generate class methods (Construct and Getters/Setters) b
 
 ## Features
 
-### Add class methods: 
+### Class methods generation: 
 
 > To add only one getter/setter, select the line property before choosing "Add property getter"
 
 ![Method generator](images/generator.gif)
 
-### New Class/interface file: 
+### Class/Interface file generation: 
 ![File generator](images/creator.gif)
 
 ## Requirements
