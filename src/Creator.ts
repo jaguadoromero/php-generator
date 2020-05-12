@@ -34,11 +34,11 @@ export default class Creator {
     public static async newFile(file: any, fileName: string, method: CallableFunction): Promise<void> {
 
 		if (!file || !file.path) {
-            vscode.window.showInformationMessage('Php Generator: Empty file path');
+            vscode.window.showErrorMessage('PHP Generator: Empty file path');
             return;
         }
 
-        let filePath = Creator.getPath(file);
+        let filePath = Creator.absoluteToRelative(Creator.getPath(file));
         let newFilePath = await vscode.window.showInputBox({
             prompt: "File name",
             value: filePath + fileName,
@@ -49,11 +49,13 @@ export default class Creator {
         });
 
         if(!newFilePath || !Creator.isPath(newFilePath)) {
-            vscode.window.showInformationMessage('Php Generator: Wrong path');
+            vscode.window.showInformationMessage('PHP Generator: File generation canceled or wrong path');
             return;
         }
+
+        newFilePath = Creator.relativeToAbsolute(newFilePath);
         if(fs.existsSync(newFilePath)) {
-            vscode.window.showInformationMessage('Php Generator: File already exist');
+            vscode.window.showErrorMessage('PHP Generator: File already exist');
             return;
         }
 
@@ -79,8 +81,8 @@ export default class Creator {
             throw new Error('PHP Generator: Wrong path');
         }
         return !res[4] || res[4] === ''
-            ? res[1] + res[3] + '/'
-            : res[1];
+            ? res[1] + res[3] + '/' //Target is a folder
+            : res[1];               //Target is a file
     }
 
     /**
@@ -92,5 +94,38 @@ export default class Creator {
     public static isPath(path: string): boolean {
         const regex = /(\/?([a-zA-Z_-]*\/)*)(\.?[a-zA-Z_-]*)(\.[a-zA-Z]*)?/g;
         return !!regex.exec(path);
+    }
+
+    // Todo : Remove workspace name in only one folder opened
+    public static absoluteToRelative(path: string): string {
+
+        let workspaceFolders = vscode.workspace.workspaceFolders;
+        if(!workspaceFolders) {
+            return path;
+        }
+
+        workspaceFolders.forEach(folder => {
+            if(path.startsWith(folder.uri.path)) {
+                path = folder.name + path.replace(folder.uri.path, '');
+            }
+        });
+
+        return path;
+    }
+
+    public static relativeToAbsolute(path: string): string {
+
+        let workspaceFolders = vscode.workspace.workspaceFolders;
+        if(!workspaceFolders) {
+            return path;
+        }
+
+        workspaceFolders.forEach(folder => {
+            if(path.startsWith(folder.name)) {
+                path = folder.uri.path + path.replace(folder.name, '');
+            }
+        });
+
+        return path;
     }
 }
