@@ -96,7 +96,6 @@ export default class Creator {
         return !!regex.exec(path);
     }
 
-    // Todo : Remove workspace name in only one folder opened
     public static absoluteToRelative(path: string): string {
 
         let workspaceFolders = vscode.workspace.workspaceFolders;
@@ -104,9 +103,13 @@ export default class Creator {
             return path;
         }
 
+        if(workspaceFolders.length === 1) {
+            return '~' + path.replace(workspaceFolders[0].uri.path, '');
+        }
+
         workspaceFolders.forEach(folder => {
             if(path.startsWith(folder.uri.path)) {
-                path = folder.name + path.replace(folder.uri.path, '');
+                path = '~/' + folder.name + path.replace(folder.uri.path, '');
             }
         });
 
@@ -120,9 +123,13 @@ export default class Creator {
             return path;
         }
 
+        if(workspaceFolders.length === 1) {
+            return workspaceFolders[0].uri.path + path.slice(1);
+        }
+
         workspaceFolders.forEach(folder => {
-            if(path.startsWith(folder.name)) {
-                path = folder.uri.path + path.replace(folder.name, '');
+            if(path.startsWith('~/' + folder.name)) {
+                path = folder.uri.path + path.slice(2).replace(folder.name, '');
             }
         });
 
