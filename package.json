@@ -1,9 +1,9 @@
 {
 	"name": "php-generator",
 	"displayName": "PHP File & Code Generator",
-	"description": "Add file & method PHP template in context menu. Construct, accessors ...",
+	"description": "Add file & method PHP templates in context menu. Class, Construct, accessors ...",
 	"icon": "images/php.png",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "adasilva",
 	"author": "Antoine Da Silva",
 	"license": "MIT",
@@ -19,6 +19,13 @@
 	},
 	"categories": [
 		"Other"
+	],
+	"keywords": [
+		"php",
+		"file",
+		"class",
+		"getter",
+		"accessor"
 	],
 	"activationEvents": [
 		"onLanguage:php",
