@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import Property from './Property';
 import Class from './Class';
-import { threadId } from 'worker_threads';
 
 const PROPERTY_NOT_FOUND = 'PHP generator: Nothing selected or not a property';
 const NO_FILE_OPEN = 'PHP generator: No file open in editor';
