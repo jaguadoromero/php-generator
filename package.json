@@ -30,7 +30,8 @@
 	"activationEvents": [
 		"onLanguage:php",
 		"onCommand:php-generator.create-class",
-		"onCommand:php-generator.create-interface"
+		"onCommand:php-generator.create-interface",
+		"onCommand:php-generator.create-trait"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -92,6 +93,11 @@
 				"command": "php-generator.create-interface",
 				"title": "New PHP Interface",
 				"category": "PHP Generator"
+			},
+			{
+				"command": "php-generator.create-trait",
+				"title": "New PHP Trait",
+				"category": "PHP Generator"
 			}
 		],
 		"menus": {
@@ -130,6 +136,10 @@
 				{
 					"command": "php-generator.create-interface",
 					"group": "0_phpGenerator@1"
+				},
+				{
+					"command": "php-generator.create-trait",
+					"group": "0_phpGenerator@2"
 				}
 			]
 		}

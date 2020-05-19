@@ -23,6 +23,15 @@ export default class Creator {
     }
 
     /**
+     * Create a new Trait file
+     * 
+     * @param file 
+     */
+    public static newTrait(file: any) {
+        Creator.newFile(file, 'MyTrait.php', Templater.getTraitTemplate);
+    }
+
+    /**
      * Create a new file
      * 
      * @param file

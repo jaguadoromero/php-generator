@@ -24,6 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let newClass = vscode.commands.registerCommand('php-generator.create-class', file => Creator.newClass(file));
 	let newInterface = vscode.commands.registerCommand('php-generator.create-interface', file => Creator.newInterface(file));
+	let newTrait = vscode.commands.registerCommand('php-generator.create-trait', file => Creator.newTrait(file));
 
 
 	context.subscriptions.push(addConstruct);
@@ -34,6 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(newClass);
 	context.subscriptions.push(newInterface);
+	context.subscriptions.push(newTrait);
 }
 
 // this method is called when your extension is deactivated

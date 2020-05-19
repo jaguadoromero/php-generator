@@ -23,6 +23,16 @@ export default class Templater {
      */
     public static async getInterfaceTemplate(filepath: string): Promise<string> {
         return Templater.getTemplate(filepath, 'interface');
+    }
+
+    /**
+     * Get template for a class file
+     * 
+     * @param {string} filepath
+     * @return {Promise<string>}
+     */
+    public static async getTraitTemplate(filepath: string): Promise<string> {
+        return Templater.getTemplate(filepath, 'trait');
     } 
 
     /**
